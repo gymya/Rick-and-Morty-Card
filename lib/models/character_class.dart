@@ -23,7 +23,7 @@ class CharacterClass {
         gender = json['gender'] as String,
         origin = Origin.fromJson(json['origin']) as Origin,
         location = Location.fromJson(json['location']) as Location,
-        image = json['image'] as String,
+        image = json['image'] as String ?? 'https://via.placeholder.com/150',
         episode = List<String>.from(json['episode'] as List<dynamic>),
         url = json['url'] as String,
         created = json['created'];
@@ -31,7 +31,7 @@ class CharacterClass {
   int id;
   String name;
   String status;
-  String species;
+  String species;   
   String type;
   String gender;
   Origin? origin;

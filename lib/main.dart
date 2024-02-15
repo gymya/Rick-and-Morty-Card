@@ -42,7 +42,7 @@ class _Character extends State<CharacterPage> {
         'rickandmortyapi.com', '/api/character/$randomId', {'q': '{http}'});
     var response = await http.get(url);
     if (response.statusCode == 200) {
-      print('Character name is: ${_currentCharacter.name}.');
+      print('Character name is: ${_currentCharacter?.name}.');
       setState(() {
         _currentCharacter =
             CharacterClass.fromJson(convert.jsonDecode(response.body));
@@ -92,15 +92,19 @@ class _Character extends State<CharacterPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Image.network(
-              _currentCharacter.image as String,
+              _currentCharacter?.image ?? 'https://via.placeholder.com/150',
               errorBuilder: (BuildContext context, Object exception,
                   StackTrace? stackTrace) {
-                return const Text('ð¢');
+                return const Text('N/A');
               },
             ),
             Text(
-              'Character name is: ${_currentCharacter.name}',
-              style: Theme.of(context).textTheme.headlineMedium,
+              '${_currentCharacter?.name}',
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 24,
+              ),
+              textAlign: TextAlign.center,
             ),
             ElevatedButton(
               onPressed: getNewCharacter,
